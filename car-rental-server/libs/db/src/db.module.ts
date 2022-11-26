@@ -2,7 +2,6 @@ import { Module, DynamicModule, Provider } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { getModelForClass } from '@typegoose/typegoose';
 import mongoose from 'mongoose';
-import { DbService } from './db.service';
 
 type ClassType = { new (...args: any[]): any };
 
