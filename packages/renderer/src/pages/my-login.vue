@@ -1,12 +1,26 @@
 <script setup lang="ts">
-import {useRoute} from 'vue-router';
+import {useRouter} from 'vue-router';
 
-const route = useRoute();
-console.log(route.path);
+const router = useRouter();
+const change = () => {
+  router.push({
+    name: 'home',
+  });
+};
 </script>
 
 <template>
-  <div>
-    <slot />
+  <div
+    class="my-login"
+    @click="change"
+  >
   </div>
 </template>
+
+<style lang="less" scoped>
+.my-login {
+  width: 100px;
+  height: 100px;
+  background-color: black;
+}
+</style>

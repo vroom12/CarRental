@@ -1,10 +1,20 @@
 <script setup lang="ts">
-const props = defineProps<{
-  modelValue?: boolean;
-}>();
-console.log(props);
+import HomeAside from '/@/components/Home/HomeAside.vue';
 </script>
 
 <template>
-  <div> 123 </div>
+  <div class="my-home">
+    <div class="my-home-home">123</div>
+    <HomeAside />
+  </div>
 </template>
+
+<style lang="less" scoped>
+.my-home {
+  &-home {
+    width: 100px;
+    height: 100px;
+    background-color: aqua;
+  }
+}
+</style>
