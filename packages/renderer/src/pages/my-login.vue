@@ -14,13 +14,8 @@ const change = () => {
     class="my-login"
     @click="change"
   >
+    login
   </div>
 </template>
 
-<style lang="less" scoped>
-.my-login {
-  width: 100px;
-  height: 100px;
-  background-color: black;
-}
-</style>
+<style lang="less" scoped></style>

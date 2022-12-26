@@ -1,10 +1,10 @@
 /* eslint-env node */
 
-import {chrome} from '../../.electron-vendors.cache.json';
+import { chrome } from '../../.electron-vendors.cache.json';
 import vue from '@vitejs/plugin-vue';
-import {renderer} from 'unplugin-auto-expose';
-import {join} from 'node:path';
-import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
+import { renderer } from 'unplugin-auto-expose';
+import { join } from 'node:path';
+import { injectAppVersion } from '../../version/inject-app-version-plugin.mjs';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -53,11 +53,7 @@ const config = {
     loaderOptions: {
       less: {
         lessOptions: {
-          modifyVars: {
-            'primary-color': '#1DA57A',
-            'link-color': '#1DA57A',
-            'border-radius-base': '2px',
-          },
+          // modifyVars: `@import "${join(PACKAGE_ROOT, 'src/styles/my-ant-css.less')}";`,
           javascriptEnabled: true,
         },
       },

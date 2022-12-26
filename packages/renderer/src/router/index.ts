@@ -1,4 +1,5 @@
 import {createRouter, createWebHashHistory} from 'vue-router';
+import homeChildren from '/@/router/modules/homeChildren';
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -9,6 +10,7 @@ const router = createRouter({
       meta: {title: 'home'},
       path: '/home',
       component: () => import('/@/pages/my-home.vue'),
+      children: [...homeChildren],
     },
     {
       name: 'login',
