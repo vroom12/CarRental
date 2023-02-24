@@ -3,13 +3,6 @@ import type {ColumnType} from 'ant-design-vue/lib/table';
 export const getTableColumns = (isMobile: boolean) => {
   const columns: ColumnType[] = [
     {
-      title: '用户名',
-      dataIndex: 'username',
-      key: 'username',
-      width: '20%',
-      align: 'center',
-    },
-    {
       title: '姓名',
       dataIndex: 'name',
       key: 'name',
@@ -17,16 +10,23 @@ export const getTableColumns = (isMobile: boolean) => {
       align: 'center',
     },
     {
-      title: '邮箱',
-      dataIndex: 'email',
-      key: 'email',
+      title: '电话',
+      dataIndex: 'phone',
+      key: 'phone',
       width: '20%',
       align: 'center',
     },
     {
-      title: '电话',
-      dataIndex: 'phone',
-      key: 'phone',
+      title: '地址',
+      dataIndex: 'address',
+      key: 'address',
+      width: '20%',
+      align: 'center',
+    },
+    {
+      title: '驾驶记录',
+      dataIndex: 'drivingRecord',
+      key: 'drivingRecord',
       width: '20%',
       align: 'center',
     },
@@ -40,5 +40,52 @@ export const getTableColumns = (isMobile: boolean) => {
       align: 'center',
     });
   }
+  return columns; // 这里返回的是一个数组
+};
+
+export const getFormColumns = (selectQuery: Array<'name' | 'phone' | 'address'>) => {
+  const columns = [
+    {
+      label: '选择查询条件',
+      prop: 'selectQuery',
+      type: 'checkbox-group',
+      isShow: true,
+      options: [
+        {
+          label: '姓名',
+          value: 'name',
+          type: 'checkbox',
+        },
+        {
+          label: '电话',
+          value: 'phone',
+          type: 'checkbox',
+        },
+        {
+          label: '地址',
+          value: 'address',
+          type: 'checkbox',
+        },
+      ],
+    },
+    {
+      label: '姓名',
+      prop: 'name',
+      type: 'input',
+      isShow: selectQuery.includes('name'),
+    },
+    {
+      label: '电话',
+      prop: 'phone',
+      type: 'input',
+      isShow: selectQuery.includes('phone'),
+    },
+    {
+      label: '地址',
+      prop: 'address',
+      type: 'input',
+      isShow: selectQuery.includes('address'),
+    },
+  ];
   return columns; // 这里返回的是一个数组
 };

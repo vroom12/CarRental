@@ -8,7 +8,7 @@ const router = createRouter({
     {
       name: 'home',
       meta: {title: 'home'},
-      path: '/home',
+      path: '/home/:id',
       component: () => import('/@/pages/my-home.vue'),
       children: [...homeChildren],
     },

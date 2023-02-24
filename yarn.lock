@@ -1653,9 +1653,9 @@
   "resolved" "https://registry.npmjs.org/csstype/-/csstype-2.6.20.tgz"
   "version" "2.6.20"
 
-"dayjs@^1.10.5", "dayjs@^1.11.3":
+"dayjs@^1.10.5", "dayjs@^1.11.3", "dayjs@^1.11.7":
   "integrity" "sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ=="
-  "resolved" "https://registry.npmmirror.com/dayjs/-/dayjs-1.11.7.tgz"
+  "resolved" "https://registry.npmjs.org/dayjs/-/dayjs-1.11.7.tgz"
   "version" "1.11.7"
 
 "de-indent@^1.0.2":

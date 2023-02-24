@@ -19,11 +19,11 @@ export const toggleTheme = (theme: string) => {
   head.appendChild(style);
 };
 
-export const changeTheme = (darkMode: boolean, themeColor: Theme) => {
+export const changeTheme = async (darkMode: boolean, themeColor: Theme) => {
   if (darkMode) {
     toggleTheme(dark);
   } else {
-    toggleTheme(light);
+    await toggleTheme(light);
     theme(themeColor);
   }
 };

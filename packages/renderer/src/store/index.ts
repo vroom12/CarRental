@@ -5,6 +5,8 @@ import type {StoreState} from '../interface/store';
 export const getDefaultStoreState = (): StoreState => ({
   darkMode: false,
   themeColor: {},
+  creatUserName: '',
+  creatUserId: '',
 });
 
 export const useStore = defineStore('store', {

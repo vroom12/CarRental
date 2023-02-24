@@ -1,5 +1,5 @@
 export interface UserItem {
-  id: number;
+  id?: number;
   username: string;
   name: string;
   email: string;
