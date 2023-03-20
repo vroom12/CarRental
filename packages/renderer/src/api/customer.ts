@@ -1,9 +1,9 @@
 import {request} from './request';
-import {CUSTOMER} from './types';
-import type {CustomerItem} from '/@/interface/customer';
+import {CUSTOMER, LEASE_RECORD} from './types';
+import type {CustomerItem, leaseRecordType} from '/@/interface/customer';
 
 export const apiCustomerList = () => {
-  return request({
+  return request<CustomerItem[]>({
     url: `${CUSTOMER}`,
     method: 'GET',
   });
@@ -16,17 +16,17 @@ export const apiCustomerById = (id: string) => {
   });
 };
 
-export const apiCustomerPage = (data: {page: number; pageSize: number}) => {
-  return request({
+export const apiCustomerPage = (data: {pageSize: number; pageNumber: number}) => {
+  return request<CustomerItem[]>({
     url: `${CUSTOMER}/page`,
-    method: 'GET',
+    method: 'POST',
     data,
   });
 };
 
 export const apiCustomerInsert = (data: Omit<CustomerItem, '_id'>) => {
-  return request({
-    url: `${CUSTOMER}insert`,
+  return request<CustomerItem>({
+    url: `${CUSTOMER}/insert`,
     method: 'POST',
     data,
   });
@@ -35,7 +35,7 @@ export const apiCustomerInsert = (data: Omit<CustomerItem, '_id'>) => {
 export const apiCustomerUpdate = (data: Omit<CustomerItem, '_id'>, id: string) => {
   return request({
     url: `${CUSTOMER}/${id}`,
-    method: 'PUT',
+    method: 'PATCH',
     data,
   });
 };
@@ -44,5 +44,13 @@ export const apiCustomerDelete = (id: string) => {
   return request({
     url: `${CUSTOMER}/${id}`,
     method: 'DELETE',
+  });
+};
+
+export const apiFindBuCustomerId = (data: {customerId: string}) => {
+  return request<leaseRecordType[]>({
+    url: `${LEASE_RECORD}/findBuCustomerId`,
+    method: 'POST',
+    data,
   });
 };

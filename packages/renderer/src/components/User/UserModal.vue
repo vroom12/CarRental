@@ -15,17 +15,22 @@ const state = reactive<{
     name: '',
     phone: '',
     address: '',
-    drivingRecord: [],
+    gender: 0,
+    integral: 0,
   },
 });
 
 const handleOk = async () => {
   if (title.value === '新增') {
-    const res = await apiCustomerInsert(state.formVal);
-    message.success(res.data.message);
+    const {success, data} = await apiCustomerInsert(state.formVal);
+    if (success && data) {
+      message.success('新增成功');
+    }
   } else if (title.value === '编辑') {
-    const res = await apiCustomerUpdate(state.formVal, id.value);
-    message.success(res.data.message);
+    const {success, data} = await apiCustomerUpdate(state.formVal, id.value);
+    if (success && data) {
+      message.success('修改成功');
+    }
   }
   emits('update');
   modalVisible.value = false;
@@ -37,9 +42,15 @@ const show = (val: {record?: CustomerItem; title: string}) => {
     state.formVal.name = val.record.name;
     state.formVal.phone = val.record.phone;
     state.formVal.address = val.record.address;
-    state.formVal.drivingRecord = val.record.drivingRecord;
+    state.formVal.gender = val.record.gender;
+    state.formVal.integral = val.record.integral;
     id.value = val.record._id;
-    console.log(val.record);
+  } else {
+    state.formVal.name = '';
+    state.formVal.phone = '';
+    state.formVal.address = '';
+    state.formVal.gender = 0;
+    state.formVal.integral = 0;
   }
   modalVisible.value = true;
 };

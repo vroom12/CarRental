@@ -6,6 +6,7 @@ export const getLoginFormValues = () => ({
   name: '',
   email: '',
   phone: '',
+  avatar: '',
 });
 
 export const getRegisterFormConfig = (): FormConfigType[] => [

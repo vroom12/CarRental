@@ -2,13 +2,14 @@
 import {reactive, ref} from 'vue';
 import {getTableColumns} from './config';
 import type {CustomerItem} from '/@/interface/customer';
-import {apiCustomerPage, apiCustomerDelete} from '/@/api/customer';
+import {apiCustomerPage, apiCustomerDelete, apiFindBuCustomerId} from '/@/api/customer';
 import UserModal from './UserModal.vue';
 import UserDrivingRecordModal from './UserDrivingRecordModal.vue';
 import UserForm from './UserForm.vue';
+import {message} from 'ant-design-vue';
 
 const columns = getTableColumns(false);
-const page = ref(1);
+const pageNumber = ref(1);
 const pageSize = ref(10);
 const refUserModal = ref<InstanceType<typeof UserModal>>();
 const refUserDrivingRecordModal = ref<InstanceType<typeof UserDrivingRecordModal>>();
@@ -21,24 +22,26 @@ const state = reactive<{
     name: '',
     phone: '',
     address: '',
-    drivingRecord: [],
+    gender: 0,
+    integral: 0,
   },
 });
 
 const getUserList = async () => {
-  const {data} = await apiCustomerPage({
-    page: page.value,
+  const {success, data} = await apiCustomerPage({
+    pageNumber: pageNumber.value,
     pageSize: pageSize.value,
   });
-  if (data) {
-    state.data = data.data.customers;
-    page.value = data.data.page;
-    pageSize.value = data.data.customers.length;
+  if (success && data) {
+    state.data = data;
   }
 };
 
 const deleteUser = async (id: string) => {
-  await apiCustomerDelete(id);
+  const {success, data} = await apiCustomerDelete(id);
+  if (success && data) {
+    message.success('删除成功');
+  }
   getUserList();
 };
 
@@ -46,8 +49,13 @@ const handleEditOrInsert = (val: {record?: CustomerItem; title: string}) => {
   refUserModal.value?.show(val);
 };
 
-const checkDrivingRecord = (val: CustomerItem['drivingRecord']) => {
-  refUserDrivingRecordModal.value?.show(val);
+const checkDrivingRecord = async (id: string) => {
+  const {success, data} = await apiFindBuCustomerId({
+    customerId: id,
+  });
+  if (success && data) {
+    refUserDrivingRecordModal.value?.show(data);
+  }
 };
 
 getUserList();

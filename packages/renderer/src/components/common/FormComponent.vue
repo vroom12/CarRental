@@ -27,16 +27,18 @@ watch(
 </script>
 
 <template>
-  <a-form>
+  <a-form v-bind="$attrs">
     <a-form-item
       v-for="(i, index) in formState.colunms"
       :key="i.prop"
       :label="i.label"
+      v-bind="i.options"
     >
       <template v-if="!i.slot">
         <component
           :is="FormType[i.type]"
           v-model:value="formState.formVal[i.prop]"
+          v-bind="i.options?.children"
         >
           <div v-if="i.type === 'checkbox'">
             <component

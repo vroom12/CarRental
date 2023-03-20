@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {reactive, ref} from 'vue';
-import {type CustomerItem, drivingRecordType} from '/@/interface/customer';
+import {type leaseRecordType} from '/@/interface/customer';
 import {} from 'lodash-es';
 
 const modalVisible = ref(false);
 
 const state = reactive<{
-  descriptionsVal: CustomerItem['drivingRecord'];
+  descriptionsVal: leaseRecordType[];
 }>({
   descriptionsVal: [],
 });
@@ -15,7 +15,7 @@ const handleOk = () => {
   modalVisible.value = false;
 };
 
-const show = (val: CustomerItem['drivingRecord']) => {
+const show = (val: leaseRecordType[]) => {
   state.descriptionsVal = val;
   modalVisible.value = true;
 };
@@ -34,15 +34,15 @@ defineExpose({
     >
       <a-descriptions
         v-for="v in state.descriptionsVal"
-        :key="v.carNumber"
-        :title="`${v.startTime}驾驶记录`"
+        :key="v._id"
+        :title="`${v.rent_date}驾驶记录`"
       >
         <a-descriptions-item
           v-for="k in Object.keys(v)"
-          :key="k"
+          :key="`${k}${v._id}`"
           :label="k"
         >
-          {{ v[k as keyof drivingRecordType] }}
+          {{ v[k as keyof leaseRecordType] }}
         </a-descriptions-item>
       </a-descriptions>
     </a-modal>

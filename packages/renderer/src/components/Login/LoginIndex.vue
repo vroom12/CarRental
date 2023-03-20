@@ -5,7 +5,7 @@ import {UserItem} from '/@/interface/user';
 import router from '/@/router';
 import {Form} from 'ant-design-vue';
 import {message} from 'ant-design-vue';
-import {apiUserLogin, apiUserRegister} from '/@/api/user';
+import {apiCurUser, apiUserLogin, apiUserRegister} from '/@/api/user';
 import {Modal} from 'ant-design-vue';
 
 const useForm = Form.useForm;
@@ -41,35 +41,21 @@ const rules = reactive({
   },
 });
 
-const userLogin = async (data: Pick<UserItem, 'username' | 'password'>) => {
-  const res = await apiUserLogin(data);
-  console.log(res);
-
-  if (res.data.code === 200) {
+const userLogin = async (param: Pick<UserItem, 'username' | 'password'>) => {
+  const {success, data} = await apiUserLogin(param);
+  if (success && data) {
     message.success('登录成功');
-    router.push({name: 'home', params: {id: res.data.data.userid}});
-    return res.data.data;
-  } else if (res.data.code === 404) {
-    message.error('用户不存在');
-    Modal.confirm({
-      title: '用户不存在',
-      content: '是否前往注册',
-      onOk: () => {
-        activeKey.value = 'register';
-      },
-    });
-  } else if (res.data.code === 401) {
-    message.error('密码错误');
+    localStorage.setItem('TOKEN', data.access_token);
+    await apiCurUser();
+    router.push('home');
   } else {
-    message.error('登录失败');
+    message.error('Error');
   }
 };
 
-const userRegister = async (data: UserItem) => {
-  const res = await apiUserRegister(data);
-  console.log(res);
-
-  if (res.data.code === 200) {
+const userRegister = async (param: UserItem) => {
+  const {success, data} = await apiUserRegister(param);
+  if (success && data) {
     message.success('注册成功');
     Modal.confirm({
       title: '注册成功',
@@ -82,11 +68,6 @@ const userRegister = async (data: UserItem) => {
         };
       },
     });
-    return res.data.data;
-  } else if (res.data.code === 404) {
-    message.error(res.data.message);
-  } else {
-    message.error('注册失败');
   }
 };
 
